@@ -36,4 +36,180 @@
 
         .header-bar {
             color: white;
-            padding
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-bar h1 { margin: 0; font-size: 22px; text-transform: uppercase; letter-spacing: 1px; }
+        .date-info { font-size: 14px; text-align: right; line-height: 1.4; }
+
+        .content-grid {
+            padding: 25px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .data-card {
+            border: 1.5px solid #eee;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            background: #ffffff;
+            transition: transform 0.2s;
+        }
+
+        .data-card:hover { transform: translateY(-3px); }
+
+        .card-title {
+            font-weight: bold;
+            font-size: 16px;
+            color: #444;
+            margin-bottom: 15px;
+            display: block;
+            text-transform: uppercase;
+        }
+
+        .value-box {
+            display: inline-block;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-size: 24px;
+            font-weight: bold;
+            background: #f8f9fa;
+            border: 1px solid #ddd;
+        }
+
+        /* Section Colors */
+        .bg-orange { background-color: var(--header-orange); }
+        .bg-red { background-color: var(--header-red); }
+        .bg-green { background-color: var(--header-green); }
+
+        /* Grade Badges */
+        .grade-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .grade-item { padding: 8px; border-radius: 6px; font-weight: bold; font-size: 14px; }
+        .grade-a { background: #fff176; border: 1px solid #fbc02d; }
+        .grade-b { background: #81d4fa; border: 1px solid #0288d1; }
+        .grade-c { background: #ffcc80; border: 1px solid #f57c00; }
+        .grade-d { background: #ffab91; border: 1px solid #d84315; }
+
+        /* Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 5px;
+        }
+        th { background: #f0f0f0; padding: 10px; font-size: 14px; border: 1px solid #ddd; }
+        td { border: 1px solid #eee; padding: 10px; font-size: 15px; }
+
+        .error-log-header {
+            background: #ff3d3d;
+            color: white;
+            padding: 8px;
+            font-weight: bold;
+            margin-top: 15px;
+            border-radius: 4px 4px 0 0;
+        }
+        .error-list {
+            border: 1px solid #ff3d3d;
+            margin: 0;
+            padding: 10px 10px 10px 25px;
+            text-align: left;
+            font-size: 13px;
+            color: #d32f2f;
+            border-radius: 0 0 4px 4px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard-section">
+        <div class="header-bar bg-orange">
+            <h1>PICO System Info Dashboard</h1>
+            <div class="date-info">January 15, 2026 <br> Thursday</div>
+        </div>
+        <div class="content-grid">
+            <div class="data-card">
+                <span class="card-title">CPU Usage</span>
+                <div style="height: 80px; display: flex; align-items: center; justify-content: center; background: #fafafa; border: 1px dashed #ccc;">[Chart Area]</div>
+            </div>
+            <div class="data-card">
+                <span class="card-title">Memory Usage</span>
+                <div style="height: 80px; display: flex; align-items: center; justify-content: center; background: #fafafa; border: 1px dashed #ccc;">[Gauge Area]</div>
+            </div>
+            <div class="data-card">
+                <span class="card-title">PICO Temperature</span>
+                <div class="value-box" style="color: #e65100;">28.5 °C</div>
+            </div>
+            <div class="data-card">
+                <span class="card-title">System Status</span>
+                <div class="value-box" style="color: #2e7d32;">ONLINE</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="dashboard-section">
+        <div class="header-bar bg-red">
+            <h1>EGGS Info Dashboard</h1>
+            <div class="date-info">January 15, 2026 <br> Thursday</div>
+        </div>
+        <div class="content-grid">
+            <div class="data-card">
+                <span class="card-title">Total Eggs Today</span>
+                <div class="value-box" style="background: #fff9c4;">142</div>
+            </div>
+            <div class="data-card">
+                <span class="card-title">Daily Average Weight</span>
+                <div class="value-box" style="background: #f1f8e9;">58.2 g</div>
+            </div>
+            <div class="data-card" style="grid-column: span 2;">
+                <span class="card-title">Egg Count by Grade</span>
+                <div class="grade-row">
+                    <div class="grade-item grade-a">Grade A: 45</div>
+                    <div class="grade-item grade-b">Grade B: 62</div>
+                    <div class="grade-item grade-c">Grade C: 25</div>
+                    <div class="grade-item grade-d">Grade D: 10</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="dashboard-section">
+        <div class="header-bar bg-green">
+            <h1>System Log Dashboard</h1>
+            <div class="date-info">January 15, 2026 <br> Thursday</div>
+        </div>
+        <div class="content-grid" style="grid-template-columns: 1.5fr 1fr;">
+            <div class="data-card">
+                <span class="card-title">Recent Egg Weights</span>
+                <table>
+                    <thead>
+                        <tr><th>Time</th><th>Weight (g)</th><th>Grade</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>14:20:05</td><td>65.2</td><td>A</td></tr>
+                        <tr><td>14:21:12</td><td>52.8</td><td>C</td></tr>
+                        <tr><td>14:22:30</td><td>59.5</td><td>B</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="data-card">
+                <span class="card-title">System Alerts</span>
+                <div class="error-log-header">ERROR LOG</div>
+                <ul class="error-list">
+                    <li>No issues detected</li>
+                    <li>Calibration successful (08:00)</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
