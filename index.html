@@ -135,8 +135,9 @@
         <h2><i class="fas fa-server"></i> Pico System Status</h2>
         <div class="stats-grid">
             <div class="stat-card"><h3>Last Seen</h3><div id="pico-time" class="value">--</div></div>
-            <div class="stat-card"><h3>CPU</h3><div id="pico-cpu" class="value">0%</div></div>
-            <div class="stat-card"><h3>Temp</h3><div id="pico-temp" class="value">0°C</div></div>
+            <div class="stat-card"><h3>CPU Usage</h3><div id="pico-cpu" class="value">0%</div></div>
+            <div class="stat-card"><h3>Memory Usage</h3><div id="pico-mem" class="value">0%</div></div>
+            <div class="stat-card"><h3>Temperature</h3><div id="pico-temp" class="value">0°C</div></div>
             <div class="stat-card"><h3>Location</h3><div id="pico-loc" class="value">--</div></div>
         </div>
     </div>
@@ -178,7 +179,6 @@
 </div>
 
 <script>
-    // PASTE YOUR GOOGLE APPS SCRIPT URL HERE
     const API_URL = "https://script.google.com/macros/s/AKfycbzrmjSFV-U6VYkNCk1WUXEAq0hrH0ruUeZxykv_zyKD3bDudetkChwLAkzrTUFkzcugbg/exec";
 
     function showSection(id) {
@@ -201,23 +201,26 @@
             // Pico Update
             document.getElementById('pico-time').innerText = new Date(data.pico.time).toLocaleTimeString();
             document.getElementById('pico-cpu').innerText = data.pico.cpu + "%";
+            document.getElementById('pico-mem').innerText = data.pico.memory + "%"; // Added Memory
             document.getElementById('pico-temp').innerText = data.pico.temp + "°C";
             document.getElementById('pico-loc').innerText = data.pico.location;
 
-            // Egg Update (Latest Row)
-            const today = data.egg_stats[data.egg_stats.length - 1];
-            document.getElementById('egg-total').innerText = today[1];
-            document.getElementById('egg-a').innerText = today[2];
-            document.getElementById('egg-b').innerText = today[3];
-            document.getElementById('egg-c').innerText = today[4];
-            document.getElementById('egg-d').innerText = today[5];
-            document.getElementById('egg-rej').innerText = today[6]; // REJECTED COLUMN
+            // Egg Update
+            if (data.egg_stats.length > 0) {
+                const today = data.egg_stats[data.egg_stats.length - 1];
+                document.getElementById('egg-total').innerText = today[1];
+                document.getElementById('egg-a').innerText = today[2];
+                document.getElementById('egg-b').innerText = today[3];
+                document.getElementById('egg-c').innerText = today[4];
+                document.getElementById('egg-d').innerText = today[5];
+                document.getElementById('egg-rej').innerText = today[6];
+            }
 
-            // Logs
+            // Logs Update
             const logBody = document.getElementById('log-table-body');
             logBody.innerHTML = data.logs.map(l => `<tr><td>${new Date(l[0]).toLocaleTimeString()}</td><td>${l[1]}</td><td>${l[2]}g</td><td>${l[3]}</td><td>${l[4]}</td></tr>`).join('');
 
-            // History
+            // History Update
             const histBody = document.getElementById('history-table-body');
             histBody.innerHTML = [...data.egg_stats].reverse().map(d => `<tr><td>${new Date(d[0]).toLocaleDateString()}</td><td>${d[1]}</td><td>${d[2]}</td><td>${d[3]}</td><td>${d[4]}</td><td>${d[5]}</td><td><b>${d[6]}</b></td><td>${Number(d[7]).toFixed(1)}g</td></tr>`).join('');
 
